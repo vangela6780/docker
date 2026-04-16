@@ -18,6 +18,7 @@ jobs:
       - name: Run Container and Generate QR
         run: |
           mkdir -p qr_output
+          chmod 777 qr_output
           docker run --rm \
             --name qr-generator-test \
             -v "${{ github.workspace }}/qr_output:/app/qr_codes" \
@@ -26,4 +27,5 @@ jobs:
 
       - name: Verify QR Output
         run: |
-          test -n "$(ls -A qr_output)"
+          ls -la qr_output
+          test -n "$(ls -1 qr_output/*.png 2>/dev/null)"
