@@ -1,7 +1,10 @@
 # Reflection
 
 ## What I built
-I created a Dockerized QR code generator application and validated that it runs successfully in a containerized environment.
+I created a Dockerized QR code generator application and validated that it runs successfully in a containerized environment. 
+
+## The Docker Hub link for my image
+https://hub.docker.com/r/angelavazquez/qr-code-generator-app
 
 ## What worked well
 - The container built and ran as expected.
