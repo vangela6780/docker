@@ -29,3 +29,9 @@ jobs:
         run: |
           ls -la qr_output
           test -n "$(ls -1 qr_output/*.png 2>/dev/null)"
+
+      - name: Upload Generated QR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qr-output
+          path: qr_output/*.png
