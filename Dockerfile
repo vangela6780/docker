@@ -1,4 +1,17 @@
-FROM alpine:3.20
+FROM python:3.12-slim-bullseye
 
-# Minimal image to satisfy CI Docker build smoke test.
-CMD ["sh", "-c", "echo qr-code-app image built successfully"]
+WORKDIR /app
+
+COPY requirements.txt ./
+
+RUN useradd -m myuser && \
+	pip install --no-cache-dir -r requirements.txt && \
+	mkdir -p logs qr_codes && \
+	chown -R myuser:myuser /app
+
+COPY --chown=myuser:myuser . .
+
+USER myuser
+
+ENTRYPOINT ["python", "main.py"]
+CMD ["--url", "http://github.com/kaw393939"]

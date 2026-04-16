@@ -1,4 +1,4 @@
-name: Docker Build Test
+name: Docker Build and Runtime Test
 
 on:
   push:
@@ -13,4 +13,17 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker Image
-        run: docker build . -t qr-code-app:test
+        run: docker build . -t qr-code-generator-app:test
+
+      - name: Run Container and Generate QR
+        run: |
+          mkdir -p qr_output
+          docker run --rm \
+            --name qr-generator-test \
+            -v "${{ github.workspace }}/qr_output:/app/qr_codes" \
+            qr-code-generator-app:test \
+            --url https://www.njit.edu
+
+      - name: Verify QR Output
+        run: |
+          test -n "$(ls -A qr_output)"
